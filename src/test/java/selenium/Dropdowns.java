@@ -6,9 +6,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.devtools.v124.overlay.model.LineStyle;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import utils.BrowserUtils;
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -39,7 +41,7 @@ public class Dropdowns {
         WebElement dropdown = driver.findElement(By.xpath("//select[@id='dropdown']"));
 
         Select select = new Select(dropdown);
-       // select.selectByVisibleText("Option 2");
+        // select.selectByVisibleText("Option 2");
         //select.selectByValue("2");
         //select.selectByIndex(2);
 
@@ -47,7 +49,7 @@ public class Dropdowns {
         List<WebElement> selectOptions = select.getOptions();
         for (int i = 0; i < selectOptions.size(); i++) {
 
-            if (selectOptions.get(i).getText().equals("Option 2")){
+            if (selectOptions.get(i).getText().equals("Option 2")) {
                 selectOptions.get(i).click();
             }
 
@@ -57,7 +59,7 @@ public class Dropdowns {
     }
 
     @Test
-    public void dropdownPractice(){
+    public void dropdownPractice() {
 
         driver.get("https://www.lambdatest.com/selenium-playground/table-pagination-demo");
 
@@ -98,11 +100,6 @@ public class Dropdowns {
 //        System.out.println(customerInfo);
 
 
-
-
-
-
-
     }
 
 
@@ -119,10 +116,10 @@ public class Dropdowns {
          */
 
         WebElement name = driver.findElement(By.id("name"));
-        name.sendKeys("Kobe Abdy");
+        BrowserUtils.sendKeys(name, "Kobe Abdy");
 
         WebElement email = driver.findElement(By.xpath("//input[@id='inputEmail4']"));
-        email.sendKeys("test@test.com");
+        BrowserUtils.sendKeys(email, "test@test.com");
 
         WebElement password = driver.findElement(By.xpath("//input[@id='inputPassword4']"));
         password.sendKeys("123456789");
@@ -138,8 +135,9 @@ public class Dropdowns {
 
         for (int i = 0; i < select.getOptions().size(); i++) {
 
-            if (select.getOptions().get(i).getText().equalsIgnoreCase("united kingdom")){
+            if (select.getOptions().get(i).getText().equalsIgnoreCase("united kingdom")) {
                 select.getOptions().get(i).click();
+                break;
             }
 
         }
@@ -170,15 +168,70 @@ public class Dropdowns {
         String actualMessage = successMessage.getText();
         String expectedMessage = "Thanks for contacting us, we will get back to you shortly.";
 
+        Assert.assertEquals(actualMessage, expectedMessage, "Failed to validate success message on the submit page");
+    }
+
+    @Test
+    public void bookFlight() throws InterruptedException {
+        driver.get("https://demo.guru99.com/test/newtours/reservation.php");
+
+        // clicking One Way Radio button
+        WebElement radioButtonOneWay = driver.findElement(By.xpath("//input[@value='oneway']"));
+        radioButtonOneWay.click();
+
+        // select passenger number
+        WebElement passenger = driver.findElement(By.xpath("//select[@name='passCount']"));
+        BrowserUtils.selectBy(passenger, "3", "index");
+
+        // select departing city
+        WebElement departingCity = driver.findElement(By.xpath("//select[@name='fromPort']"));
+        BrowserUtils.selectBy(departingCity, "Zurich", "visibleText");
+
+        // select departing on month
+        WebElement fromMonth = driver.findElement(By.xpath("//select[@name='fromMonth']"));
+        BrowserUtils.selectBy(fromMonth, "9", "byValue");
+
+        // select departing day
+        WebElement departingDay = driver.findElement(By.xpath("//select[@name='fromDay']"));
+        BrowserUtils.selectBy(departingDay, "21", "visibleText");
+
+        // select arriving city
+        WebElement arriveCity = driver.findElement(By.xpath("//select[@name='toPort']"));
+        BrowserUtils.selectBy(arriveCity, "Sydney", "visibleText");
+
+        // select returning month
+        WebElement returnMonth = driver.findElement(By.xpath("//select[@name='toMonth']"));
+        BrowserUtils.selectBy(returnMonth, "11", "index");
+
+        // select returning day
+        WebElement returnDay = driver.findElement(By.xpath("//select[@name='toDay']"));
+        BrowserUtils.selectBy(returnDay, "25", "byValue");
+
+        // click on First Class radio button
+        WebElement firstClassRadioButton = driver.findElement(By.xpath("//input[@value='First']"));
+        firstClassRadioButton.click();
+
+        // loop through select options and select unified airlines with getOptions method from select class
+        WebElement airlines = driver.findElement(By.xpath("//select[@name='airline']"));
+
+        // getting all options from the dropdown, and looping through them. Also, declaring if condition to check if my desired option is available, if true it clicks on it
+        List<WebElement> options = BrowserUtils.getAllSelectOptions(airlines);
+        BrowserUtils.selectOptionFromAllOptions(options, "Unified Airlines");
+
+        Thread.sleep(3000);
 
 
+        // click on continue button
+        WebElement continueBtn = driver.findElement(By.name("findFlights"));
+        BrowserUtils.click(continueBtn);
 
 
-
-
-
-
-
+        // Validate the message on submitted page
+        WebElement message = driver.findElement(By.xpath("//b//font[@size='4']"));
+        String actualMessage = BrowserUtils.getText(message);
+        String expectedMessage = "After flight finder - No Seats Avaialble";
+        System.out.println(BrowserUtils.getText(message));
+        Assert.assertEquals(expectedMessage, actualMessage, "Failed to validate message on submitted page");
     }
 
     @AfterMethod

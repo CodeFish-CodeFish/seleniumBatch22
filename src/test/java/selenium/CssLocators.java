@@ -1,5 +1,6 @@
 package selenium;
 
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,6 +15,13 @@ public class CssLocators {
 
     @Test
     public void cssLocatorShowCase() {
+
+        //
+       //System.setProperty("webdriver.driver.chrome", "/Users/codefish/Desktop/B22HTML/chromedriver.exe");
+        // Selenium version 4 and up do not require driver executable
+        // Alternative from BoniGarcia WebDriverManager
+
+        // WebDriverManager.chromedriver().setup();
 
         WebDriver driver = new ChromeDriver();
         driver.get("https://www.lambdatest.com/selenium-playground/ajax-form-submit-demo");

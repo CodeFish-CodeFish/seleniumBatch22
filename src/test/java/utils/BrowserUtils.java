@@ -64,6 +64,8 @@ public class BrowserUtils {
 
     }
 
+
+    // Polymorphism
     public static void selectOptionFromAllOptions(WebElement element, String option){
 
         Select select = new Select(element);

@@ -23,7 +23,7 @@ public class TestBase {
     @AfterMethod
     public void tearDown() throws InterruptedException {
         Thread.sleep(4000);
-        driver.quit();
+        //driver.quit();
         System.err.println("Driver is shut down");
     }
 

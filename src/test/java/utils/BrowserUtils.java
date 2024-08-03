@@ -1,9 +1,11 @@
 package utils;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
+import java.util.Set;
 
 public class BrowserUtils {
 
@@ -98,6 +100,52 @@ public class BrowserUtils {
         element.click();
 
     }
+
+    public static void switch2Windows(WebDriver driver){
+
+        String currentID = driver.getWindowHandle();
+        Set<String> allIds = driver.getWindowHandles();
+
+        for (String id:allIds){
+
+            if (!id.equals(currentID)){
+                driver.switchTo().window(id);
+                break;
+            }
+
+        }
+
+    }
+
+    public static void switchWindowWithTitle(WebDriver driver, String title){
+
+        Set<String> ids = driver.getWindowHandles();
+
+        for (String id:ids){
+            driver.switchTo().window(id);
+            if (driver.getTitle().contains(title)){
+                break;
+            }
+        }
+
+    }
+
+
+    public static void switchWindowWithURL(WebDriver driver, String url){
+
+        Set<String> ids = driver.getWindowHandles();
+
+        for (String id:ids){
+            driver.switchTo().window(id);
+            if (driver.getCurrentUrl().contains(url)){
+                break;
+            }
+        }
+
+    }
+
+
+
 
 
 

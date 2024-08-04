@@ -50,6 +50,7 @@ public class WindowHandles extends TestBase {
         WebElement button2 = driver.findElement(By.cssSelector("#newTabBtn"));
         button2.click();
 
+
         BrowserUtils.switch2Windows(driver);
 
         Thread.sleep(5000);

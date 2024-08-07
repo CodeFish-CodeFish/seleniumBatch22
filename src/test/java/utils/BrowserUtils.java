@@ -3,6 +3,7 @@ package utils;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
@@ -142,6 +143,13 @@ public class BrowserUtils {
                 break;
             }
         }
+
+    }
+
+    public static void moveToElementWithActions(WebDriver driver, WebElement element){
+
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element).build().perform();
 
     }
 

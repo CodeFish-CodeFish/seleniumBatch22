@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import utils.BrowserUtils;
 import utils.TestBase;
 
@@ -46,7 +47,7 @@ public class WindowHandles extends TestBase {
     @Test
     public void switchWindowsTask() throws InterruptedException {
         driver.navigate().to("https://www.hyrtutorials.com/p/window-handles-practice.html");
-
+        SoftAssert softAssert = new SoftAssert();
         WebElement button2 = driver.findElement(By.cssSelector("#newTabBtn"));
         button2.click();
 
@@ -61,9 +62,10 @@ public class WindowHandles extends TestBase {
 
         String actualAlertText = alert.getText();
         String expectedAlertText = "I am an alert box!";
+        softAssert.assertEquals(actualAlertText, expectedAlertText, "Failed to validate");
+      //  Assert.assertEquals(actualAlertText, expectedAlertText, "Failed to validate alert text");
 
-        Assert.assertEquals(actualAlertText, expectedAlertText, "Failed to validate alert text");
-
+        softAssert.assertAll();// if this one is not used, it will not show validation failures
         alert.accept();
     }
 

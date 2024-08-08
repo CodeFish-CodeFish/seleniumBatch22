@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import utils.ConfigReader;
 
 import java.time.Duration;
 
@@ -35,11 +36,11 @@ public class KatalonPractice {
 
         // enter username into username input field
         WebElement usernameField = driver.findElement(By.xpath("//input[@name='username']"));
-        usernameField.sendKeys("John Doe");
+        usernameField.sendKeys(ConfigReader.readProperty("username"));
 
         // enter password into password input field
         WebElement passwordField = driver.findElement(By.xpath("//input[@type='password']"));
-        passwordField.sendKeys("ThisIsNotAPassword");
+        passwordField.sendKeys(ConfigReader.readProperty("password"));
 
         Thread.sleep(4000);
         // click on login button

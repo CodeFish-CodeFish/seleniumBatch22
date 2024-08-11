@@ -29,6 +29,7 @@ public class FileUpload {
         WebElement fileUploadInput = driver.findElement(By.cssSelector("#file-upload"));
         fileUploadInput.sendKeys("/Users/codefish/Desktop/B22HTML/breakingBad.jpeg");// provide path to you file
 
+
         Thread.sleep(3000);
         WebElement uploadButton = driver.findElement(By.cssSelector("#file-submit"));
         BrowserUtils.click(uploadButton);

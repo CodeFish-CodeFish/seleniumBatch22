@@ -1,9 +1,6 @@
 package selenium;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
@@ -53,7 +50,7 @@ public class JSMethods extends TestBase {
     }
 
     @Test
-    public void getURlWithJS(){
+    public void getURlWithJS() {
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.open('https://codefish.io/')");
@@ -64,14 +61,13 @@ public class JSMethods extends TestBase {
 
         BrowserUtils.switchWindowWithTitle(driver, expectedTitle);
         System.out.println(driver.getTitle());
+    }
 
-
-
-
-
-
-
-
+    @Test
+    public void scrollWithPontClass(){
+        driver.get("https://the-internet.herokuapp.com/");
+        WebElement elementalSelenium = driver.findElement(By.linkText("Elemental Selenium"));
+        BrowserUtils.scrollWithPoint(elementalSelenium, driver);
     }
 
 

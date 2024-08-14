@@ -18,12 +18,15 @@ public class ProductPage {
     @FindBy(css = "#react-burger-menu-btn")
     WebElement hamburgerMenu;
 
-
+    @FindBy(css = "#logout_sidebar_link")
+    WebElement logoutButton;
 
     public void sanityCheck(){
 
         BrowserUtils.selectBy(this.priceDropdown, "Price (high to low)","visibleText");
         BrowserUtils.click(this.hamburgerMenu);
+        BrowserUtils.click(this.logoutButton);
+
     }
 
 

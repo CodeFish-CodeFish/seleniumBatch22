@@ -17,11 +17,6 @@ public class SauceLabTests extends TestBase {
 
         ProductPage productPage = new ProductPage(driver);
         productPage.sanityCheck();
-
-
-
-
-
     }
 
 

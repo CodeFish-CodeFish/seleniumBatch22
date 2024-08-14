@@ -127,6 +127,16 @@ public class BrowserUtils {
 
     }
 
+    public static void click(WebElement element, WebDriver driver){
+
+        // Proceed to Checkout
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click()",element);
+
+    }
+
     public static void switch2Windows(WebDriver driver) {
 
         String currentID = driver.getWindowHandle();

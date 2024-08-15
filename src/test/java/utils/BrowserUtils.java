@@ -83,6 +83,13 @@ public class BrowserUtils {
 
     }
 
+    public static String firstSelectOption(WebElement element){
+
+        Select select = new Select(element);
+        return select.getFirstSelectedOption().getText().trim();
+
+    }
+
 
     // returns list of webElement from select. It retrieves all the options from the dropdown
     public static List<WebElement> getAllSelectOptions(WebElement element) {
@@ -128,12 +135,21 @@ public class BrowserUtils {
     }
 
     public static void click(WebElement element, WebDriver driver){
+//TimeoutException
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            wait.until(ExpectedConditions.visibilityOf(element));
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].click()",element);
+        }catch (TimeoutException | ElementNotInteractableException e){
 
-        // Proceed to Checkout
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(element));
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].click()",element);
+            System.err.println("JavaScript method did not work on click " + e.getMessage());
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            wait.until(ExpectedConditions.visibilityOf(element));
+            Actions actions = new Actions(driver);
+            actions.click(element).build().perform();
+
+        }
 
     }
 

@@ -30,8 +30,9 @@ public class ProductListPage {
         // This will choose one specific bag, hovers over it, and clicks on add to cart button
         Actions actions = new Actions(driver);
         actions.moveToElement(this.bagImage).click(this.oneSpecificBag).build().perform();
-        Thread.sleep(4000);
+
         //Clicks on cart button, then clicks on proceed to checkout button
+        BrowserUtils.click(this.cartButtonFromPrList, driver);
         BrowserUtils.click(this.cartButtonFromPrList, driver);
         BrowserUtils.click(this.proceedToCheckoutBtn, driver);
 

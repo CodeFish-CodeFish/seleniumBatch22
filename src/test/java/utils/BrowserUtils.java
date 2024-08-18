@@ -80,7 +80,7 @@ public class BrowserUtils {
 
     }
 
-    public static String firstSelectOption(WebElement element){
+    public static String firstSelectOption(WebElement element) {
 
         Select select = new Select(element);
         return select.getFirstSelectedOption().getText().trim();
@@ -131,14 +131,14 @@ public class BrowserUtils {
 
     }
 
-    public static void click(WebElement element, WebDriver driver){
+    public static void click(WebElement element, WebDriver driver) {
 //TimeoutException
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
             wait.until(ExpectedConditions.elementToBeClickable(element));
             JavascriptExecutor js = (JavascriptExecutor) driver;
-            js.executeScript("arguments[0].click()",element);
-        }catch (TimeoutException | ElementNotInteractableException e){
+            js.executeScript("arguments[0].click()", element);
+        } catch (TimeoutException | ElementNotInteractableException e) {
 
             System.err.println("JavaScript method did not work on click " + e.getMessage());
 
@@ -204,6 +204,36 @@ public class BrowserUtils {
         int y = point.getY();
         js.executeScript("window.scrollTo(" + x + ", " + y + ")");
 
+    }
+
+    public static void acceptJsAlert(WebDriver driver) {
+
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+            wait.until(ExpectedConditions.alertIsPresent());
+            Alert alert = driver.switchTo().alert();
+            alert.accept();
+
+        } catch (NoAlertPresentException e) {
+            System.err.println("Exception occurred while attempting to switch to js alert " + e.getMessage());
+        }
+
+
+    }
+
+    public static String getTextFromAlert(WebDriver driver){
+        String text = "";
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+            wait.until(ExpectedConditions.alertIsPresent());
+            Alert alert = driver.switchTo().alert();
+            text = alert.getText();
+
+        } catch (NoAlertPresentException e) {
+            System.err.println("Exception occurred while attempting to getText from js alert " + e.getMessage());
+        }
+
+        return text;
     }
 
 

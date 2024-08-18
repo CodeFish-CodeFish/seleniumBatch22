@@ -8,8 +8,11 @@ import utils.BrowserUtils;
 
 public class QARegisterPage {
 
+    private WebDriver driver;
+
     public QARegisterPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
+        this.driver = driver;
     }
 
     @FindBy(css = "#input-firstname")
@@ -39,7 +42,7 @@ public class QARegisterPage {
     @FindBy(xpath = "//input[@type='submit']")
     WebElement submitBtn;
 
-    public void registerUser(WebDriver driver, String firstname, String lastname, String email, String telephone,
+    public void registerUser( String firstname, String lastname, String email, String telephone,
                              String password, String confirmPassword){
 
         BrowserUtils.sendKeys(this.firstname, driver, firstname);

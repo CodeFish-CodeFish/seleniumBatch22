@@ -5,15 +5,18 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.BrowserUtils;
+import utils.DriverHelper;
 
 import javax.sql.rowset.BaseRowSet;
 
 public class QAMainPage {
 
+    private WebDriver driver;
 
     public QAMainPage(WebDriver driver) {
 
         PageFactory.initElements(driver, this);
+        this.driver = driver;
     }
 
 
@@ -24,7 +27,7 @@ public class QAMainPage {
     WebElement register;
 
 
-    public void clickOnRegister(WebDriver driver){
+    public void clickOnRegister(){
 
         BrowserUtils.click(this.myAccount, driver);
         BrowserUtils.click(this.register, driver);

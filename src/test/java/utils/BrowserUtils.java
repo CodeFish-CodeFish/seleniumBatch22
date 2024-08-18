@@ -48,10 +48,7 @@ public class BrowserUtils {
             element.sendKeys(key);
         } catch (ElementNotInteractableException | NoSuchElementException e) {
             System.err.println("Exception occurred while sending keys attempting fluentWait " + e.getMessage());
-            Wait<WebDriver> fluentWait = new FluentWait<>(driver)
-                    .withTimeout(Duration.ofSeconds(10))
-                    .pollingEvery(Duration.ofSeconds(2));
-            fluentWait.until(ExpectedConditions.elementToBeClickable(element)).sendKeys(key);
+
         }
 
 
@@ -138,16 +135,12 @@ public class BrowserUtils {
 //TimeoutException
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            wait.until(ExpectedConditions.visibilityOf(element));
+            wait.until(ExpectedConditions.elementToBeClickable(element));
             JavascriptExecutor js = (JavascriptExecutor) driver;
             js.executeScript("arguments[0].click()",element);
         }catch (TimeoutException | ElementNotInteractableException e){
 
             System.err.println("JavaScript method did not work on click " + e.getMessage());
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            wait.until(ExpectedConditions.visibilityOf(element));
-            Actions actions = new Actions(driver);
-            actions.click(element).build().perform();
 
         }
 

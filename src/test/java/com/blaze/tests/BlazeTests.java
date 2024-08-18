@@ -30,11 +30,6 @@ public class BlazeTests extends TestBase {
         CartPage cartPage = new CartPage(driver);
         cartPage.checkoutInputForm(name, country, city, card, month, year);
         test.log(Status.INFO, "User successfully performed a purchase");
-
-
-
-
-
     }
 
 
